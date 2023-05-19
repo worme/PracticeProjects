@@ -11,12 +11,12 @@ class Pokemon():
   def lose_health(self, amount):
     """Takes an amount as an argument and lowers a pokemon's current health by that number."""
     self.current_health -= amount
-    print(f"{self.name} now has {self.current_health} health.")
+    print(f"{self.name} now has {self.current_health} hitpoints.")
 
   def gain_health(self, amount):
     """Takes an amount as an argument and raises a pokemon's current health by that number."""
     self.current_health += amount
-    print(f"{self.name} now has {self.current_health} health.")
+    print(f"{self.name} now has {self.current_health} hitpoints.")
 
   def knock_out(self):
     """Determines if a pokemon has been knocked out by assessing if the pokemon's current health has fallen to 0 or below."""    
@@ -89,8 +89,8 @@ class Trainer():
   
   def attack_trainer(self, other_trainer):
     """Takes a trainer object as an argument and uses Pokemon class with attack method to attack the other trainer's active pokemon."""
-    self.active_poke.attack(other_trainer.active_poke)
     print(f"{self.name} is attcking {other_trainer.name}")
+    self.active_poke.attack(other_trainer.active_poke)
   
   def switch_active_poke(self, poke):
     """Takes a pokemon object as an argument and sets it as the active pokemon."""
@@ -104,6 +104,11 @@ squirtle2 = Pokemon("Squirtle2", 1, "Water", 10, 10, False)
 bulbasaur = Pokemon("Bulbasaur", 1, "Grass", 10, 10, False)
 
 red = Trainer("Red Team", [charmander, squirtle1], charmander, [])
-blue = Trainer("Blue Team", [squirtle2, bulbasaur], squirtle2, [])
+blue = Trainer("Blue Team", [squirtle2, bulbasaur], bulbasaur, [])
 
+red.attack_trainer(blue)
+red.attack_trainer(blue)
+red.attack_trainer(blue)
+red.attack_trainer(blue)
+red.attack_trainer(blue)
 red.attack_trainer(blue)
