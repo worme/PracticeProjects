@@ -4,7 +4,7 @@ class Pokemon():
     self.name = name
     self.level = level
     self.element_type = element_type
-    self.max_health = max_health # determined by the level
+    self.max_health = self.level * 10
     self.current_health = current_health
     self.knocked_out = knocked_out
 
@@ -15,8 +15,11 @@ class Pokemon():
 
   def gain_health(self, amount):
     """Takes an amount as an argument and raises a pokemon's current health by that number."""
-    self.current_health += amount
-    print(f"{self.name} now has {self.current_health} hitpoints.")
+    if self.current_health < self.max_health:
+      self.current_health += amount
+      if self.current_health > self.max_health:
+        self.max_health = self.level * 10
+      print(f"{self.name} now has {self.current_health} hitpoints.")
 
   def knock_out(self):
     """Determines if a pokemon has been knocked out by assessing if the pokemon's current health has fallen to 0 or below."""    
@@ -63,7 +66,7 @@ class Pokemon():
         elif other_poke.element_type == "Grass":
           print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
           other_poke.lose_health(self.level)
-          
+
     if other_poke.current_health <= 0:
       other_poke.knock_out()
 
@@ -74,7 +77,7 @@ class Trainer():
     self.poke_list = poke_list # up to 6 total pokemon
     self.name = name
     self.active_poke = active_poke
-    self.potions = []
+    self.potions = potions
 
   def use_potion(self):
     """Takes no arguments. Checks if a potion is in the potion list and then removes it."""
@@ -82,9 +85,9 @@ class Trainer():
     if len(self.potions) == 0:
       print(f"{self.name} has no more potions.")
     elif len(self.potions) >= 1:
-      print(f"{self.name} has used a healing potion on {self.active_poke}.")
+      print(f"{self.name} has used a healing potion on {self.active_poke.name}.")
       self.active_poke.gain_health(heal_amount)
-      print(f"{self.active_poke} has gained {heal_amount} hitpoints.")
+      #print(f"{self.active_poke.name} has gained {heal_amount} hitpoints.")
       del self.potions[0]
       
   
@@ -104,12 +107,17 @@ squirtle1 = Pokemon("Squirtle1", 1, "Water", 10, 10, False)
 squirtle2 = Pokemon("Squirtle2", 1, "Water", 10, 10, False)
 bulbasaur = Pokemon("Bulbasaur", 1, "Grass", 10, 10, False)
 
-red = Trainer("Red Team", [charmander, squirtle1], charmander, [])
-blue = Trainer("Blue Team", [squirtle2, bulbasaur], bulbasaur, [])
+red = Trainer("Red Team", [charmander, squirtle1], charmander, ["pot1", "pot2", "pot3", "pot4", "pot5"])
+blue = Trainer("Blue Team", [squirtle2, bulbasaur], bulbasaur, ["pot1", "pot2", "pot3", "pot4", "pot5"])
 
 red.attack_trainer(blue)
 red.attack_trainer(blue)
 red.attack_trainer(blue)
+blue.use_potion()
 red.attack_trainer(blue)
 red.attack_trainer(blue)
 red.attack_trainer(blue)
+blue.use_potion()
+blue.use_potion()
+blue.use_potion()
+blue.use_potion()
