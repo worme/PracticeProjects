@@ -30,7 +30,7 @@ class Pokemon():
 
   def attack(self, other_poke):
     """Takes a pokemon as an argument and determines the damage caused from one pokemon to the one passed. This is based on element types."""
-    if self.current_health > 0:
+    if other_poke.current_health > 0:
       if self.element_type == "Fire":
         if other_poke.element_type == "Grass":
           print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
@@ -63,6 +63,7 @@ class Pokemon():
         elif other_poke.element_type == "Grass":
           print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
           other_poke.lose_health(self.level)
+          
     if other_poke.current_health <= 0:
       other_poke.knock_out()
 
