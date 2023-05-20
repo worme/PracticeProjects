@@ -4,7 +4,7 @@ class Pokemon():
     self.name = name
     self.level = level
     self.element_type = element_type
-    self.max_health = self.level * 10
+    self.max_health = max_health 
     self.current_health = current_health
     self.knocked_out = knocked_out
 
@@ -33,43 +33,45 @@ class Pokemon():
 
   def attack(self, other_poke):
     """Takes a pokemon as an argument and determines the damage caused from one pokemon to the one passed. This is based on element types."""
-    if other_poke.current_health > 0:
-      if self.element_type == "Fire":
-        if other_poke.element_type == "Grass":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
-          other_poke.lose_health(self.level * 2)
-        elif other_poke.element_type == "Water":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
-          other_poke.lose_health(self.level / 2)
-        elif other_poke.element_type == "Fire":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
-          other_poke.lose_health(self.level)
+    if self.knocked_out == False:
+      if other_poke.current_health > 0:
+        if self.element_type == "Fire":
+          if other_poke.element_type == "Grass":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
+            other_poke.lose_health(self.level * 2)
+          elif other_poke.element_type == "Water":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
+            other_poke.lose_health(self.level / 2)
+          elif other_poke.element_type == "Fire":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
+            other_poke.lose_health(self.level)
 
-      if self.element_type == "Water":
-        if other_poke.element_type == "Fire":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
-          other_poke.lose_health(self.level * 2)
-        elif other_poke.element_type == "Grass":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
-          other_poke.lose_health(self.level / 2)
-        elif other_poke.element_type == "Water":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
-          other_poke.lose_health(self.level)
+        if self.element_type == "Water":
+          if other_poke.element_type == "Fire":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
+            other_poke.lose_health(self.level * 2)
+          elif other_poke.element_type == "Grass":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
+            other_poke.lose_health(self.level / 2)
+          elif other_poke.element_type == "Water":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
+            other_poke.lose_health(self.level)
 
-      if self.element_type == "Grass":
-        if other_poke.element_type == "Water":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
-          other_poke.lose_health(self.level * 2)
-        elif other_poke.element_type == "Fire":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
-          other_poke.lose_health(self.level / 2)
-        elif other_poke.element_type == "Grass":
-          print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
-          other_poke.lose_health(self.level)
+        if self.element_type == "Grass":
+          if other_poke.element_type == "Water":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level * 2} hitpoints.")
+            other_poke.lose_health(self.level * 2)
+          elif other_poke.element_type == "Fire":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level / 2} hitpoints.")
+            other_poke.lose_health(self.level / 2)
+          elif other_poke.element_type == "Grass":
+            print(f"{self.name} attacks {other_poke.name}. {other_poke.name} loses {self.level} hitpoints.")
+            other_poke.lose_health(self.level)
 
-    if other_poke.current_health <= 0:
-      other_poke.knock_out()
-
+      if other_poke.current_health <= 0:
+        other_poke.knock_out()
+    elif self.knocked_out == True:
+      print(f"{self.name} is knocked out and cannot attack.")
 
 class Trainer():
   """Represents a Trainer instance."""
@@ -113,11 +115,7 @@ blue = Trainer("Blue Team", [squirtle2, bulbasaur], bulbasaur, ["pot1", "pot2", 
 red.attack_trainer(blue)
 red.attack_trainer(blue)
 red.attack_trainer(blue)
-blue.use_potion()
 red.attack_trainer(blue)
 red.attack_trainer(blue)
 red.attack_trainer(blue)
-blue.use_potion()
-blue.use_potion()
-blue.use_potion()
-blue.use_potion()
+blue.attack_trainer(red)
