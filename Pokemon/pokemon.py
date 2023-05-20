@@ -76,7 +76,7 @@ class Pokemon():
 class Trainer():
   """Represents a Trainer instance."""
   def __init__(self, name, poke_list, active_poke, potions):
-    self.poke_list = poke_list # up to 6 total pokemon
+    self.poke_list = poke_list
     self.name = name
     self.active_poke = active_poke
     self.potions = potions
@@ -105,22 +105,3 @@ class Trainer():
     elif poke.knocked_out == True:
       print(f"{self.name} tried to switch pokemon to {poke.name}.")
       print(f"Cannot switch pokemon because {poke.name} is knocked out.")
-
-# Tests
-charmander = Pokemon("Charmander", 1, "Fire", 10, 10, False)
-squirtle1 = Pokemon("Squirtle1", 1, "Water", 10, 10, False)
-squirtle2 = Pokemon("Squirtle2", 1, "Water", 10, 10, False)
-bulbasaur = Pokemon("Bulbasaur", 1, "Grass", 10, 10, False)
-
-red = Trainer("Red Team", [charmander, squirtle1], charmander, ["pot1", "pot2", "pot3", "pot4", "pot5"])
-blue = Trainer("Blue Team", [squirtle2, bulbasaur], bulbasaur, ["pot1", "pot2", "pot3", "pot4", "pot5"])
-
-red.attack_trainer(blue)
-red.attack_trainer(blue)
-red.attack_trainer(blue)
-red.attack_trainer(blue)
-red.attack_trainer(blue)
-red.attack_trainer(blue)
-blue.attack_trainer(red)
-blue.switch_active_poke(squirtle2)
-blue.switch_active_poke(bulbasaur)
