@@ -89,7 +89,6 @@ class Trainer():
     elif len(self.potions) >= 1:
       print(f"{self.name} has used a healing potion on {self.active_poke.name}.")
       self.active_poke.gain_health(heal_amount)
-      #print(f"{self.active_poke.name} has gained {heal_amount} hitpoints.")
       del self.potions[0]
       
   
@@ -100,8 +99,12 @@ class Trainer():
   
   def switch_active_poke(self, poke):
     """Takes a pokemon object as an argument and sets it as the active pokemon."""
-    self.active_poke = poke
-    print(f"{self.name}'s active pokemon has been switched. Active pokemon is now {poke.name}.")
+    if poke.knocked_out == False:
+      self.active_poke = poke
+      print(f"{self.name}'s active pokemon has been switched. Active pokemon is now {poke.name}.")
+    elif poke.knocked_out == True:
+      print(f"{self.name} tried to switch pokemon to {poke.name}.")
+      print(f"Cannot switch pokemon because {poke.name} is knocked out.")
 
 # Tests
 charmander = Pokemon("Charmander", 1, "Fire", 10, 10, False)
@@ -119,3 +122,5 @@ red.attack_trainer(blue)
 red.attack_trainer(blue)
 red.attack_trainer(blue)
 blue.attack_trainer(red)
+blue.switch_active_poke(squirtle2)
+blue.switch_active_poke(bulbasaur)
